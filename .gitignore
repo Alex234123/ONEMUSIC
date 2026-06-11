@@ -13,6 +13,9 @@ dist-ssr
 dist-api
 *.local
 
+# Trae IDE
+.trae
+
 # Build output
 release
 release3
