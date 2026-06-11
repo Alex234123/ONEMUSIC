@@ -1,0 +1,117 @@
+{
+  "name": "onemusic",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "client:dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:electron": "vite build",
+    "build:api": "node build-api.mjs",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "check": "tsc --noEmit",
+    "server:dev": "nodemon",
+    "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\"",
+    "electron:dev": "concurrently \"VITE_DEV_SERVER_URL=http://localhost:5173 electron . --no-sandbox\" \"npm run client:dev\" \"npm run server:dev\"",
+    "electron:build": "npm run build:electron && npm run build:api && electron-builder",
+    "electron:preview": "npm run build:electron && electron ."
+  },
+  "build": {
+    "appId": "com.onemusic.app",
+    "productName": "ONEMUSIC",
+    "asar": false,
+    "directories": {
+      "output": "release4"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-api/**/*",
+      "electron/**/*",
+      ".env",
+      "ONEMUSIC.png",
+      "build-api.mjs"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "ONEMUSIC.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "ONEMUSIC.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "ONEMUSIC.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  },
+  "dependencies": {
+    "@applemusic-like-lyrics/lyric": "^1.0.1",
+    "@applemusic-like-lyrics/react-full": "^0.4.1",
+    "@pixi/app": "^7.4.3",
+    "@pixi/core": "^7.4.3",
+    "@pixi/display": "^7.4.3",
+    "@pixi/filter-blur": "^7.4.3",
+    "@pixi/filter-bulge-pinch": "^5.1.1",
+    "@pixi/filter-color-matrix": "^7.4.3",
+    "@pixi/sprite": "^7.4.3",
+    "animejs": "^3.2.2",
+    "axios": "^1.7.0",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.21.2",
+    "framer-motion": "^12.40.0",
+    "gsap": "^3.12.5",
+    "howler": "^2.2.4",
+    "jotai": "^2.20.0",
+    "lucide-react": "^0.511.0",
+    "NeteaseCloudMusicApi": "^4.32.0",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-compiler-runtime": "^1.0.0",
+    "react-dom": "^18.3.1",
+    "react-modern-audio-player": "^2.3.1",
+    "react-router-dom": "^7.3.0",
+    "tailwind-merge": "^3.0.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/animejs": "^3.1.12",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.21",
+    "@types/howler": "^2.2.12",
+    "@types/node": "^22.15.30",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.1",
+    "@vercel/node": "^5.3.6",
+    "@vitejs/plugin-react": "^4.4.1",
+    "autoprefixer": "^10.4.21",
+    "babel-plugin-react-dev-locator": "^1.0.0",
+    "concurrently": "^9.2.0",
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3",
+    "esbuild": "^0.28.0",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.20.3",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.5",
+    "vite-plugin-trae-solo-badge": "^1.0.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display'), local('SFProDisplay-Regular');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: local('SF Pro Display Bold'), local('SFProDisplay-Bold');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'), local('SFProText-Regular');
+  font-weight: 400;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: 'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: #000000;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* ── 播放器色彩系统 (Material You + Apple Music) ── */
+  --player-primary: #FA586A;
+  --player-primary-glow: rgba(250, 88, 106, 0.4);
+  --player-primary-container: rgba(250, 88, 106, 0.12);
+  --player-on-primary: #FFFFFF;
+  --player-surface: #000000;
+  --player-surface-elevated: #1A1A1A;
+  --player-surface-container: #121212;
+  --player-on-surface: #FFFFFF;
+  --player-on-surface-variant: rgba(255, 255, 255, 0.45);
+  --player-on-surface-muted: rgba(255, 255, 255, 0.2);
+  --player-outline: rgba(255, 255, 255, 0.08);
+  --player-outline-variant: rgba(255, 255, 255, 0.05);
+
+  /* ── 缓动曲线 ── */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* 边缘消隐遮罩类 */
+.mask-fade-y {
+  mask-image: linear-gradient(to bottom, transparent 0%, white 10%, white 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, white 10%, white 90%, transparent 100%);
+}
+
+/* 毛玻璃面板 */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(40px) saturate(1.3);
+  -webkit-backdrop-filter: blur(40px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 液态玻璃面板 — 带折射效果 */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(40px) saturate(1.5) url(#liquid-glass);
+  -webkit-backdrop-filter: blur(40px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* 液态玻璃面板 — 强调版（弹出面板等） */
+.liquid-glass-heavy {
+  background: rgba(30, 30, 32, 0.4);
+  backdrop-filter: blur(60px) saturate(1.8) url(#liquid-glass);
+  -webkit-backdrop-filter: blur(60px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 12px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* 毛玻璃面板 — 强调版（弹出菜单等） */
+.glass-panel-heavy {
+  background: rgba(28, 28, 30, 0.92);
+  backdrop-filter: blur(60px) saturate(1.5);
+  -webkit-backdrop-filter: blur(60px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 横向滚动容器 */
+.scroll-x {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 0 0 8px 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-x::-webkit-scrollbar {
+  height: 0;
+}
+
+.scroll-x > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* 选中文字颜色 */
+::selection {
+  background: rgba(250, 88, 106, 0.4);
+  color: #FFFFFF;
+}
+
+/* ── 涟漪动画 ── */
+@keyframes ripple-expand {
+  0%   { transform: scale(0); opacity: 0.12; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ── 按钮按压弹跳 ── */
+@keyframes apple-press {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(0.88); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@keyframes amll-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
