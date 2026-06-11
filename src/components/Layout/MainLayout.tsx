@@ -24,9 +24,12 @@ export default function MainLayout() {
       <FluidBackground colors={colors} />
       <AudioEngine />
       {/* macOS 风格标题栏 */}
-      <div className="relative z-50 flex items-center justify-between h-[38px] shrink-0">
+      <div
+        className="relative z-50 flex items-center justify-between h-[38px] shrink-0"
+        style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}
+      >
         <TrafficLights />
-        <span className="absolute left-1/2 -translate-x-1/2 text-xs text-white/30 font-medium select-none">
+        <span className="absolute left-1/2 -translate-x-1/2 text-xs text-white/30 font-medium select-none pointer-events-none">
           ONEMUSIC
         </span>
       </div>

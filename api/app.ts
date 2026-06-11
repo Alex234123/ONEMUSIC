@@ -22,11 +22,9 @@ import topRoutes from './routes/top.js';
 import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth.js';
 
-// CJS 打包时 __dirname 由 Node.js 提供；ESM 开发时从 import.meta 推导
-declare const __import_meta_url: string | undefined;
-const __dirname = typeof __dirname !== 'undefined'
-  ? __dirname
-  : path.dirname(fileURLToPath(__import_meta_url ?? import.meta.url));
+const __dirname = typeof globalThis.__dirname !== 'undefined'
+  ? globalThis.__dirname
+  : path.dirname(fileURLToPath(import.meta.url));
 
 // load env — 指定从项目根目录加载 .env
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });

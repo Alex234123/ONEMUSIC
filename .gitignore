@@ -24,6 +24,9 @@ dogfood-output
 .env
 .env.*
 
+# Screenshots (original Chinese-named folder)
+截屏
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

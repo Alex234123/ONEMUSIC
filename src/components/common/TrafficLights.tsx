@@ -64,10 +64,7 @@ export default function TrafficLights() {
   ];
 
   return (
-    <div
-      className="flex items-center gap-2 pl-4 py-2 select-none"
-      style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}
-    >
+    <div className="flex items-center gap-2 pl-4 py-2 select-none">
       {buttons.map((btn) => (
         <button
           key={btn.id}
