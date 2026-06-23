@@ -2,7 +2,7 @@ import { build } from 'esbuild';
 import { cpSync, rmSync, existsSync } from 'fs';
 
 build({
-  entryPoints: ['api/server.ts'],
+  entryPoints: ['server/server.ts'],
   bundle: true,
   platform: 'node',
   target: 'node18',
