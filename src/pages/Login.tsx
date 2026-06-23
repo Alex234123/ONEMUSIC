@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Music2, RefreshCw, CheckCircle, Smartphone } from 'lucide-react';
+import { Music2, RefreshCw, CheckCircle, Smartphone, ChevronLeft } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 
 type QRStatus = 'loading' | 'waiting' | 'scanned' | 'success' | 'expired';
@@ -85,6 +85,15 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-surface-dark flex items-center justify-center px-4 relative overflow-hidden">
+      {/* 返回按钮 */}
+      <button
+        onClick={() => navigate('/')}
+        className="absolute top-6 left-6 z-20 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+        title="返回首页"
+      >
+        <ChevronLeft size={22} />
+      </button>
+
       {/* 背景装饰 */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-red rounded-full blur-[150px]" />

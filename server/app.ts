@@ -10,7 +10,6 @@ import express, {
 import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
 import { cookieInject } from './middleware/auth.js';
 
 import searchRoutes from './routes/search.js';
@@ -22,9 +21,9 @@ import topRoutes from './routes/top.js';
 import userRoutes from './routes/user.js';
 import authRoutes from './routes/auth.js';
 
-const __dirname = typeof globalThis.__dirname !== 'undefined'
-  ? globalThis.__dirname
-  : path.dirname(fileURLToPath(import.meta.url));
+// CJS (esbuild 打包后): __dirname 原生可用
+// ESM (tsx 开发模式): tsx 自动 polyfill __dirname
+declare const __dirname: string;
 
 // load env — 指定从项目根目录加载 .env
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
