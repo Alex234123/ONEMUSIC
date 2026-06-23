@@ -110,18 +110,23 @@ function AMLLBridge() {
 
     const buf = new Uint8Array(audioAnalyzer?.analyser.frequencyBinCount ?? 128);
     let rafId: number;
+    let lastFftTime = 0;
+    const FFT_INTERVAL = 100; // ms — 降低 FFT 采样频率，避免每帧创建数组导致内存暴涨
 
     const tick = () => {
       setMusicPosition(audio.currentTime * 1000);
       if (audioAnalyzer?.analyser) {
-        // 持续守护：浏览器可能在任意时刻挂起 AudioContext
         if (audioAnalyzer.ctx.state === 'suspended') {
           audioAnalyzer.ctx.resume().catch(() => {});
         }
-        audioAnalyzer.analyser.getByteFrequencyData(buf);
-        setFftData(Array.from(buf));
-        const low = buf.slice(0, 4).reduce((a, b) => a + b, 0) / (4 * 255);
-        setLowFreqVolume(low);
+        const now = performance.now();
+        if (now - lastFftTime >= FFT_INTERVAL) {
+          lastFftTime = now;
+          audioAnalyzer.analyser.getByteFrequencyData(buf);
+          setFftData(Array.from(buf));
+          const low = buf.slice(0, 4).reduce((a, b) => a + b, 0) / (4 * 255);
+          setLowFreqVolume(low);
+        }
       }
       rafId = requestAnimationFrame(tick);
     };

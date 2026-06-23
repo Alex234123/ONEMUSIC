@@ -12,19 +12,11 @@ export let audioAnalyzer: { analyser: AnalyserNode; ctx: AudioContext } | null =
 /** 全局 <audio> 元素引用，供 prepareAudioContext 使用 */
 let globalAudioRef: HTMLAudioElement | null = null;
 
-/** 持续守护 AudioContext 不被浏览器挂起 */
+/** 持续守护 AudioContext 不被浏览器挂起（仅依赖事件，不用 setInterval） */
 function guardAudioContext(ctx: AudioContext): void {
-  const resume = () => {
+  ctx.onstatechange = () => {
     if (ctx.state === 'suspended') ctx.resume().catch(() => {});
   };
-  ctx.onstatechange = () => {
-    if (ctx.state === 'suspended') resume();
-  };
-  // 额外：定时检测（某些浏览器不触发 statechange）
-  const timer = setInterval(() => {
-    if (ctx.state === 'closed') { clearInterval(timer); return; }
-    resume();
-  }, 2000);
 }
 
 /**

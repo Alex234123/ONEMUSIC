@@ -109,7 +109,7 @@ body {
 /* 液态玻璃面板 — 带折射效果 */
 .liquid-glass {
   background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(40px) saturate(1.5) url(#liquid-glass);
+  backdrop-filter: blur(40px) saturate(1.5);
   -webkit-backdrop-filter: blur(40px) saturate(1.5);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow:
@@ -121,7 +121,7 @@ body {
 /* 液态玻璃面板 — 强调版（弹出面板等） */
 .liquid-glass-heavy {
   background: rgba(30, 30, 32, 0.4);
-  backdrop-filter: blur(60px) saturate(1.8) url(#liquid-glass);
+  backdrop-filter: blur(60px) saturate(1.8);
   -webkit-backdrop-filter: blur(60px) saturate(1.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:

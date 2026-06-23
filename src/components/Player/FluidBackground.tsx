@@ -30,36 +30,31 @@ export default function FluidBackground({ colors }: Props) {
   );
 
   const blobs = useMemo<Blob[]>(() => {
-    const opacities = [0.4, 0.3, 0.25, 0.18, 0.22, 0.15];
-    const sizes = [60, 50, 65, 40, 55, 45];
+    const opacities = [0.4, 0.3, 0.25];
+    const sizes = [60, 50, 65];
     const positions: [number, number][] = [
-      [30, 25], [70, 35], [50, 60], [20, 70], [80, 55], [45, 40],
+      [30, 25], [70, 35], [50, 60],
     ];
-    const durations = [18, 22, 25, 20, 28, 16];
-    const delays = [0, -4, -8, -12, -6, -2];
-    const blurs = [80, 100, 70, 90, 85, 95];
+    const durations = [18, 22, 25];
+    const delays = [0, -4, -8];
+    const blurs = [50, 60, 45];
 
-    return palette.flatMap((color, ci) =>
-      [0, 1].map((j) => ({
-        color,
-        size: sizes[ci * 2 + j],
-        x: positions[ci * 2 + j][0],
-        y: positions[ci * 2 + j][1],
-        duration: durations[ci * 2 + j],
-        delay: delays[ci * 2 + j],
-        blur: blurs[ci * 2 + j],
-        opacity: opacities[ci * 2 + j],
-      }))
-    );
+    return palette.slice(0, 3).map((color, ci) => ({
+      color,
+      size: sizes[ci],
+      x: positions[ci][0],
+      y: positions[ci][1],
+      duration: durations[ci],
+      delay: delays[ci],
+      blur: blurs[ci],
+      opacity: opacities[ci],
+    }));
   }, [palette]);
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-      {/* 流体 blob 层 — 使用全局 SVG 液态滤镜 */}
-      <div
-        className="absolute inset-0"
-        style={{ filter: 'url(#liquid-glass)' }}
-      >
+      {/* 流体 blob 层 */}
+      <div className="absolute inset-0">
         {blobs.map((blob, i) => (
           <div
             key={i}
@@ -74,7 +69,6 @@ export default function FluidBackground({ colors }: Props) {
               opacity: blob.opacity,
               filter: `blur(${blob.blur}px)`,
               animation: `fluid-blob-${i % 3} ${blob.duration}s ease-in-out ${blob.delay}s infinite alternate`,
-              willChange: 'transform, border-radius',
             }}
           />
         ))}

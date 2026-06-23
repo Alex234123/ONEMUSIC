@@ -21,11 +21,13 @@ export default function VinylCover({ song, isPlaying }: Props) {
   useEffect(() => {
     if (!coverRef.current || !wrapperRef.current) return;
 
+    gsap.killTweensOf([coverRef.current, wrapperRef.current]);
+
     if (isPlaying) {
       gsap.to(coverRef.current, { scale: 1, duration: 0.6, ease: 'cubic-bezier(0.4, 0.2, 0.1, 1)' });
       gsap.to(wrapperRef.current, { filter: 'drop-shadow(rgba(0,0,0,0.19) 0px 1em 1.2em)', duration: 0.5 });
     } else {
-      gsap.to(coverRef.current, { scale: 0.75, duration: 0.5, ease: 'cubic-bezier(0.3, 0.2, 0.2, 1.4)' }); /* AMLL --scale-level: 0.75 */
+      gsap.to(coverRef.current, { scale: 0.75, duration: 0.5, ease: 'cubic-bezier(0.3, 0.2, 0.2, 1.4)' });
       gsap.to(wrapperRef.current, { filter: 'drop-shadow(rgba(0,0,0,0.15) 0px 0.8em 0.8em)', duration: 0.5 });
     }
   }, [isPlaying]);
